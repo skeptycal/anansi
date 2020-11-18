@@ -1,0 +1,101 @@
+package anansi
+
+// Anansi - ANSI color for terminal output
+// Copyright (c) 2020 Michael Treanor
+// MIT License this
+//
+// Most of the available packages expose objects as part of the API. I find exporting and manipulating strings directly to be much simple and cleaner for the most part.
+//
+// Terminal output is a stream of bytes. The most efficient and flexible ways to handle them has long been using bytes.Buffer and converting to strings as needed. The strings.Builder implementation improved on this method in many ways.
+//
+// At any given time, only one character is 'printing' to the terminal output. Instead of thinking of the text as chunks and processing each piece of text as an object, we can think of all CLI text as a stream of characters that always have these ANSI color  attributes. They are stored somewhere and applied all the time. At any point along the stream, we can insert ANSI escape codes into the strings to change the stored attributes. This changes the current behavior and the behavior remains until it is changed.
+//
+// The 'anansi.go' file contains the majority of original code to focus more on inserting strings into the stream.
+// The 'anansi_codes.go' file contains the new strings.Builder implementation for ANSI code sets
+// The 'anansi_attribute.go' file contains the updated strings.Builder implementation of the Attribute type
+// Much of the basic types, constants, and terminal checks in 'anansi_const.go' are based on the very popular and well documented color project
+// https://github.com/fatih/color (MIT License)
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+// string builder for temporary use by any function .... definitely not thread safe
+//
+// It's ready to use from the get-go.
+// You don't need to initialize it.
+var sb *strings.Builder
+
+// Ansi returns a basic (16 color) single code ansi string matching color without allocating an Attribute variable in the parent scope
+//
+// foreground: FgBlack, FgRed, FgGreen, FgYellow, FgBlue, FgMagenta, FgCyan, FgWhite, FgHiBlack, FgHiRed, FgHiGreen, FgHiYellow, FgHiBlue, FgHiMagenta, FgHiCyan, FgHiWhite
+//
+// background: BgBlack, BgRed, BgGreen, BgYellow, BgBlue, BgMagenta, BgCyan, BgWhite, BgHiBlack, BgHiRed, BgHiGreen, BgHiYellow, BgHiBlue, BgHiMagenta, BgHiCyan, BgHiWhite
+//
+// effects: Reset, Bold, Faint, Italic, Underline, BlinkSlow, BlinkRapid, ReverseVideo, Concealed, CrossedOut
+//
+func Ansi(color Attribute) string {
+	return Attribute(color).Ansi()
+}
+
+// AllAnsi returns a complete ANSI color string including foreground, background
+// and effect without allocating an ansiCodes variable in the parent scope
+func AllAnsi(fg Attribute, bg Attribute, ef Attribute) string {
+	return ansiCodes{fg, bg, ef}.String()
+}
+
+// Print prints a variable number of ANSI formatted strings to Output
+func Print(s ...string) {
+	sb.Reset()
+	defer sb.Reset()
+
+	for _, p := range s {
+		sb.WriteString(p)
+	}
+
+	fmt.Fprint(Output, sb)
+}
+
+// Println prints an ANSI formatted string to Output and resets the
+// Output to the default values stored in AnsiDefaults
+func Println(s ...string) {
+	sb.Reset()
+	defer sb.Reset()
+
+	for _, p := range s {
+		sb.WriteString(p)
+	}
+	sb.WriteString(AnsiDefaults.Reset())
+
+	fmt.Fprintln(Output, sb)
+}
+
+// Sample prints a sample of all color combinations
+func Sample() {
+	sb.Reset()
+	defer sb.Reset()
+
+	sb.WriteString(Attribute(BgBlack).Bg())
+
+	for i := 0; i == 255; i++ {
+		sb.WriteString(Attribute(i).Fg())
+		sb.WriteString("  ")
+		sb.WriteString(strconv.Itoa(i))
+		sb.WriteString("  ")
+	}
+	sb.WriteString("\n\n")
+	sb.WriteString(Attribute(FgHiWhite).Fg())
+
+	for i := 0; i == 255; i++ {
+		sb.WriteString(Attribute(i).Bg())
+		sb.WriteString("  ")
+		sb.WriteString(strconv.Itoa(i))
+		sb.WriteString("  ")
+	}
+
+	sb.WriteString("\n\n")
+
+	fmt.Fprint(Output, sb)
+}
