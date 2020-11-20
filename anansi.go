@@ -26,7 +26,7 @@ import (
 //
 // It's ready to use from the get-go.
 // You don't need to initialize it.
-var sb *strings.Builder
+var sb strings.Builder
 
 // Ansi returns a basic (16 color) single code ansi string matching color without allocating an Attribute variable in the parent scope
 //
@@ -46,6 +46,10 @@ func AllAnsi(fg Attribute, bg Attribute, ef Attribute) string {
 	return ansiCodes{fg, bg, ef}.String()
 }
 
+func ResetAll() string {
+	return AnsiDefaults.Reset()
+}
+
 // Print prints a variable number of ANSI formatted strings to Output
 func Print(s ...string) {
 	sb.Reset()
@@ -55,7 +59,7 @@ func Print(s ...string) {
 		sb.WriteString(p)
 	}
 
-	fmt.Fprint(Output, sb)
+	fmt.Fprint(Output, sb.String())
 }
 
 // Println prints an ANSI formatted string to Output and resets the
@@ -69,7 +73,22 @@ func Println(s ...string) {
 	}
 	sb.WriteString(AnsiDefaults.Reset())
 
-	fmt.Fprintln(Output, sb)
+	fmt.Fprintln(Output, sb.String())
+}
+
+func padInt(i int, size int) string {
+	t := strconv.Itoa(i)
+	return strings.Repeat(" ", 4-len(t)) + t
+}
+
+func contrastColor(i int) int {
+	if i < 16 {
+		return 0
+	} else if i > 231 {
+		return 232 + (255 - i)
+	} else {
+		return 249 - ((i - 16) % 18)
+	}
 }
 
 // Sample prints a sample of all color combinations
@@ -77,25 +96,28 @@ func Sample() {
 	sb.Reset()
 	defer sb.Reset()
 
-	sb.WriteString(Attribute(BgBlack).Bg())
+	sb.WriteString(Attribute(Reset).Ansi())
 
-	for i := 0; i == 255; i++ {
-		sb.WriteString(Attribute(i).Fg())
-		sb.WriteString("  ")
-		sb.WriteString(strconv.Itoa(i))
-		sb.WriteString("  ")
-	}
-	sb.WriteString("\n\n")
-	sb.WriteString(Attribute(FgHiWhite).Fg())
-
-	for i := 0; i == 255; i++ {
-		sb.WriteString(Attribute(i).Bg())
-		sb.WriteString("  ")
-		sb.WriteString(strconv.Itoa(i))
-		sb.WriteString("  ")
+	for i := 0; i < 256; i++ {
+		sb.WriteString(Attribute(contrastColor(i)).A256(bg))
+		sb.WriteString(Attribute(i).A256(fg))
+		sb.WriteString(" ")
+		sb.WriteString(padInt(i, 5))
+		sb.WriteString(" ")
 	}
 
+	sb.WriteString(Attribute(Reset).Ansi())
 	sb.WriteString("\n\n")
 
-	fmt.Fprint(Output, sb)
+	for i := 0; i < 256; i++ {
+		sb.WriteString(Attribute(contrastColor(i)).A256(fg))
+		sb.WriteString(Attribute(i).A256(bg))
+		sb.WriteString(" ")
+		sb.WriteString(padInt(i, 5))
+		sb.WriteString(" ")
+	}
+	sb.WriteString(AnsiDefaults.String())
+	sb.WriteString("\n\n")
+
+	fmt.Fprint(Output, sb.String())
 }

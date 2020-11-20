@@ -21,7 +21,7 @@ var AnsiDefaults = ansiCodes{
 // Attribute defines a single SGR Code
 type Attribute int
 
-// Ansi returns a basic (16 color) single code ansi string matching Attribute:
+// Ansi returns a basic (16 color) single code ANSI string matching Attribute:
 //
 // foreground: FgBlack, FgRed, FgGreen, FgYellow, FgBlue, FgMagenta, FgCyan, FgWhite, FgHiBlack, FgHiRed, FgHiGreen, FgHiYellow, FgHiBlue, FgHiMagenta, FgHiCyan, FgHiWhite
 //
@@ -32,6 +32,13 @@ type Attribute int
 func (a Attribute) Ansi() string {
 	return fmt.Sprintf(fmtAnsi, a)
 }
+
+// Bright returns  a basic (16 color) single code 'bright' ANSI string matching Attribute:
+func (a Attribute) Bright() string {
+	return fmt.Sprintf(fmtAnsiBright, a)
+}
+
+// \u001b[37;1m
 
 // A256 returns a string that represents an ANSI 256 color value
 // fb is a foreground / background choice - use constants fg and bg
@@ -72,7 +79,8 @@ func (a ansiCodes) Set(fg Attribute, bg Attribute, ef Attribute) {
 
 // AnsiDefault returns a string that resets all ANSI escape codes to default values
 func (a ansiCodes) Reset() string {
-	return AnsiDefaults.String()
+	a = AnsiDefaults
+	return a.String()
 }
 
 // ResetAnsiDefault prints a string that resets all ANSI escape codes to default values
@@ -83,7 +91,7 @@ func (a ansiCodes) Print() {
 // String returns a string that contains a set of 3 ANSI escape codes representing
 // foreground color, background color, and effect
 func (a ansiCodes) String() string {
-	return strings.Join([]string{a.fg.Ansi(), a.bg.Ansi(), a.ef.Ansi()}, ";")
+	return strings.Join([]string{a.fg.Ansi(), a.bg.Ansi(), a.ef.Ansi()}, "")
 }
 
 // Wrap returns a string that wraps s in an ansiCodes color scheme and includes a trailing reset to AnsiDefaults

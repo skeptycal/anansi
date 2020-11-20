@@ -47,14 +47,18 @@ const (
 	// ANSI escape sequence for ANSI 16 color set. variables are: constants for 16 color sets (below)
 	fmtAnsi = "\x1b[%dm"
 
+	// ANSI escape sequence for ANSI 16 color 'bright' colors. Use the regular (non 'Hi') constants.
+	fmtAnsiBright = "\x1b[%d;1m"
+
 	// ANSI escape sequence for 256 colors. variables are: 3 for fg / 4 for bg, color 0-255
-	fmtAnsi256 = "\x1b[%s8;5%dm"
+	// equivalent to BASH "\u001b[38;5;${ID}m"
+	fmtAnsi256 = "\x1b[%s8;5;%dm"
 
 	// ANSI escape sequence for 256 foreground colors; color 0-255
-	fmtAnsi256Fg = "\x1b[38;5%dm"
+	fmtAnsi256Fg = "\x1b[38;5;%dm"
 
 	// ANSI escape sequence for 256 foreground colors; color 0-255
-	fmtAnsi256Bg = "\x1b[48;5%dm"
+	fmtAnsi256Bg = "\x1b[48;5;%dm"
 
 	// foreground code for ANSI 256 color strings
 	fg = "3"
