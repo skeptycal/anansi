@@ -46,6 +46,7 @@ func AllAnsi(fg Attribute, bg Attribute, ef Attribute) string {
 	return ansiCodes{fg, bg, ef}.String()
 }
 
+// ResetAll resets all ANSI settings to default values
 func ResetAll() string {
 	return AnsiDefaults.Reset()
 }
