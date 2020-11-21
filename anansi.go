@@ -77,9 +77,21 @@ func Println(s ...string) {
 	fmt.Fprintln(Output, sb.String())
 }
 
-func padInt(i int, size int) string {
+// PadInt converts <i> to a string and adds padding to the left of <i> to make it <size> length
+func PadInt(i int, size int) string {
+	sb.Reset()
+	defer sb.Reset()
+
 	t := strconv.Itoa(i)
-	return strings.Repeat(" ", 4-len(t)) + t
+
+	pad := size - len(t)
+
+	if pad > 0 {
+		sb.WriteString(strings.Repeat(" ", pad))
+	}
+	sb.WriteString(t)
+
+	return sb.String()
 }
 
 func contrastColor(i int) int {
@@ -103,7 +115,7 @@ func Sample() {
 		sb.WriteString(Attribute(contrastColor(i)).A256(bg))
 		sb.WriteString(Attribute(i).A256(fg))
 		sb.WriteString(" ")
-		sb.WriteString(padInt(i, 5))
+		sb.WriteString(PadInt(i, 5))
 		sb.WriteString(" ")
 	}
 
@@ -114,7 +126,7 @@ func Sample() {
 		sb.WriteString(Attribute(contrastColor(i)).A256(fg))
 		sb.WriteString(Attribute(i).A256(bg))
 		sb.WriteString(" ")
-		sb.WriteString(padInt(i, 5))
+		sb.WriteString(PadInt(i, 5))
 		sb.WriteString(" ")
 	}
 	sb.WriteString(AnsiDefaults.String())
