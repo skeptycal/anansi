@@ -28,6 +28,18 @@ import (
 // You don't need to initialize it.
 var sb strings.Builder
 
+//Build concatenates a slice of strings using strings.Builder
+func Build(s ...string) string {
+	sb.Reset()
+	defer sb.Reset()
+
+	for _, p := range s {
+		sb.WriteString(p)
+	}
+
+	return sb.String()
+}
+
 // Ansi returns a basic (16 color) single code ansi string matching color without allocating an Attribute variable in the parent scope
 //
 // foreground: FgBlack, FgRed, FgGreen, FgYellow, FgBlue, FgMagenta, FgCyan, FgWhite, FgHiBlack, FgHiRed, FgHiGreen, FgHiYellow, FgHiBlue, FgHiMagenta, FgHiCyan, FgHiWhite
@@ -53,28 +65,14 @@ func ResetAll() string {
 
 // Print prints a variable number of ANSI formatted strings to Output
 func Print(s ...string) {
-	sb.Reset()
-	defer sb.Reset()
-
-	for _, p := range s {
-		sb.WriteString(p)
-	}
-
-	fmt.Fprint(Output, sb.String())
+	fmt.Fprint(Output, Build(s...))
 }
 
 // Println prints an ANSI formatted string to Output and resets the
 // Output to the default values stored in AnsiDefaults
 func Println(s ...string) {
-	sb.Reset()
-	defer sb.Reset()
+	fmt.Fprintln(Output, Build(s...))
 
-	for _, p := range s {
-		sb.WriteString(p)
-	}
-	sb.WriteString(AnsiDefaults.Reset())
-
-	fmt.Fprintln(Output, sb.String())
 }
 
 // PadInt converts <i> to a string and adds padding to the left of <i> to make it <size> length

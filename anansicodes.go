@@ -16,6 +16,16 @@ var AnsiDefaults = ansiCodes{
 	Reset,
 }
 
+// Builder string builder with specific ANSI and conversion methods
+type Builder struct {
+	addr *Builder // of receiver, to detect copies by value
+	buf  []byte
+}
+
+func (sb strings.Builder) Add(a Attribute) (int, error) {
+	return sb.WriteString(a.Ansi())
+}
+
 //* --------------------------------------------------------> Attribute type definition
 
 // Attribute defines a single SGR Code
