@@ -8,6 +8,20 @@
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/skeptycal.svg?label=%40skeptycal&style=social) ![GitHub followers](https://img.shields.io/github/followers/skeptycal.svg?style=social)
 
+---
+
+## Anansi, A Bit of Lore
+
+Named after Anansi, the trickster, of West African and Caribbean
+folklore. Before Anansi, there were no stories in the world. What
+a terrible and ignorant place that must have been!
+
+It was Anansi who convinced Nyame, The Sky-God, to share his stories
+with the world, but only after capturing the Python, the Hornets,
+the Leopard, and the Fairy.
+
+---
+---
 
 ## Getting Started
 
