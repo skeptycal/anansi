@@ -77,9 +77,6 @@ go run ./main.go
 # You should see the following output demonstrating various color combinations.
 ```
 
-
-
-
 ![sample foreground colors](sample/sample_fg.jpg)
 ![sample foreground colors](sample/sample_bg.jpg)
 
@@ -103,6 +100,8 @@ We use SemVer for versioning. For the versions available, see the tags on this r
 
 See also the list of contributors who participated in this project.
 
+>Much of the basic types, constants, and terminal checks in 'anansi_const.go' are based on the very popular and well documented [color package][fatih].
+
 ---
 
 ## License
@@ -113,3 +112,4 @@ Licensed under the MIT <https://opensource.org/licenses/MIT> - see the [LICENSE]
 [twitter]: (https://www.twitter.com/skeptycal)
 [github]: (https://github.com/skeptycal)
 [Campoy]: (https://github.com/campoy)
+[fatih]: (https://github.com/fatih/color)
