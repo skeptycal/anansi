@@ -22,11 +22,11 @@ import (
 	"strings"
 )
 
-// string builder for temporary use by any function .... definitely not thread safe
+// stringBuilder string builder for temporary use by any function .... definitely not thread safe
 //
 // It's ready to use from the get-go.
 // You don't need to initialize it.
-var sb stringBuilder
+var sb strings.Builder
 
 // Ansi returns a basic (16 color) single code ansi string matching color without allocating an Attribute variable in the parent scope
 //

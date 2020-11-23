@@ -3,54 +3,61 @@ package anansi
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
-
-	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
-// Session defines session information
-//
-// Part of the data is a Timer that returns start time (timestamp) and a function that will return a time interval (from the start time) when called
-//
-// Common Timestamp functions
-    //
-    //     type Timestamp
-    //     func New(t time.Time) *Timestamp
-    //     func Now() *Timestamp
-    //     func (x *Timestamp) AsTime() time.Time
-    //     func (x *Timestamp) CheckValid() error
-    //     func (x *Timestamp) GetNanos() int32
-    //     func (x *Timestamp) GetSeconds() int64
-    //     func (x *Timestamp) IsValid() bool
-    //     func (x *Timestamp) Reset()
-    //     func (x *Timestamp) String() string
-type Session interface {
-    Name() string
-    IsDevMode() bool
-    UseLogger() bool
-    Verbose() VerboseLevel
-    temp() *os.File
-    SessionStart() *time.Time
-    SessionEnd() *time.Time
-    UserID() uint
+func init() {
+	log.Println("init in util.go")
 }
 
+// tableFormat defines cli table formatting options
+type tableFormat struct {
+	TopHeader       string
+	BottomHeader    string
+	MiddleHeader    string
+	SideBorder      string
+	DebugHeader     string
+	AlternateBorder bool
+	AlternateColor  bool
+	HeaderColor     ansiCodes
+	RowColors       []ansiCodes
+	BorderColor     ansiCodes
+}
+
+// codeSymbolColors defines the ANSI colors used for 'pretty' code output
+type codeSymbolColors struct {
+	Keywords    Attribute
+	Operator    Attribute
+	Integers    Attribute
+	Floats      Attribute
+	Strings     Attribute
+	Comments    Attribute
+	Punctuation Attribute
+	Types       Attribute
+}
+
+type defaultValues struct {
+	ScreenWidth      int
+	UseColor         bool
+	TableFormat      tableFormat
+	CodeSymbolColors codeSymbolColors
+}
+
+var config Session
+
+// VerboseLevel defines the level of visual feedback in the cli terminal
 type VerboseLevel uint
+
 const (
-    Quiet        VerboseLevel = iota
-    Minimal
-    Standard
-    Verbose
-    Debug
-    All
+	verboseQuiet VerboseLevel = iota
+	verboseMinimal
+	verboseStandard
+	verboseVerbose
+	verboseDebug
+	verboseAll
 )
 
-func  (s *Session) SessionStart() *time.Time {
-    return time.Now()
-}
-
-
+// StartTimer returns a function that will return the elapsed time
 func StartTimer(name string) func() {
 	/*
 		    func example() {
@@ -67,18 +74,6 @@ func StartTimer(name string) func() {
 		logPrint(name, "took", d)
 	}
 }
-
-
-func logPrint(v ...interface{}) {
-	if config.VerboseLevel < debug.DEV_OUTPUT 0 {
-
-		log.Println("----------")
-		defer log.Println("----------")
-		log.Println(v)
-	}
-	// todo something here ...
-}
-
 
 func br() (n int, err error) {
 	return fmt.Println("")
