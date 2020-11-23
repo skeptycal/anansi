@@ -26,7 +26,7 @@ import (
 //
 // It's ready to use from the get-go.
 // You don't need to initialize it.
-var sb strings.Builder
+var sb stringBuilder
 
 // Ansi returns a basic (16 color) single code ansi string matching color without allocating an Attribute variable in the parent scope
 //
