@@ -12,7 +12,7 @@ import (
 	"github.com/mattn/go-isatty"
 )
 
-var (
+var ( // globally available variables
 	// NoColor defines if the output is colorized or not. It's dynamically set to
 	// false or true based on the stdout's file descriptor referring to a terminal
 	// or not. This is a global option and affects all colors. For more control
@@ -33,6 +33,17 @@ var (
 	colorsCacheMu sync.Mutex // protects colorsCache
 
 )
+
+// CliEnvironment defines a set of environment variables that control the output
+// in an ANSI text command line terminal.
+type CliEnvironment struct {
+	width  int
+	color  bool
+	ansi   ansiCodes
+	stdout *os.File
+	stderr *os.File
+	stdin  *os.File
+}
 
 // Color defines a custom color object which is defined by SGR parameters.
 type Color struct {
