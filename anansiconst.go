@@ -6,6 +6,7 @@ package anansi
 
 import (
 	"os"
+	"strconv"
 	"sync"
 
 	"github.com/mattn/go-colorable"
@@ -31,24 +32,18 @@ var ( // globally available variables
 	// allows to reuse already created objects with required Attribute.
 	colorsCache   = make(map[Attribute]*Color)
 	colorsCacheMu sync.Mutex // protects colorsCache
-
 )
-
-// CliEnvironment defines a set of environment variables that control the output
-// in an ANSI text command line terminal.
-type CliEnvironment struct {
-	width  int
-	color  bool
-	ansi   ansiCodes
-	stdout *os.File
-	stderr *os.File
-	stdin  *os.File
-}
 
 // Color defines a custom color object which is defined by SGR parameters.
 type Color struct {
 	params  []Attribute
 	noColor *bool
+}
+
+// ScreenWidth returns the cli screen width in 'characters' or 'columns'
+func ScreenWidth() int {
+	i, _ := strconv.Atoi(os.Getenv("COLUMNS"))
+	return i
 }
 
 // String formatting constants
@@ -76,6 +71,19 @@ const (
 
 	// background code for ANSI 256 color strings
 	bg = "4"
+)
+
+// Color Styles
+const (
+	None int = iota
+	Ansi8
+	Ansi16
+	Ansi256
+	Hex
+	RGB
+	HSV
+	HSL
+	CMYK
 )
 
 // Base attributes

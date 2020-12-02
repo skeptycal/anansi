@@ -6,40 +6,49 @@ import "strings"
 // Copyright (c) 2020 Michael Treanor
 // MIT License
 
-//* --------------------------------------------------------> ansiCodes type definition
+//* --------------------------------------------------------> AString type definition
 
-// AString  represents an ANSI color formatted string builder.
-type AString struct {
-	sb     *strings.Builder
-	sbAnsi ansiCodes
+// AString represents an ANSI color formatted string builder.
+type AString interface {
+	Fg()
+	Bg()
+	Ef()
+	Reset()
+	Clear()
+	String()
+}
+
+type aString struct {
+	ansiType int
+	sb       *strings.Builder
 }
 
 // Fg adds a foreground ANSI 256 color code to the string
-func (a *AString) Fg(code Attribute) {
+func (a *aString) Fg(code Attribute) {
 	a.sb.WriteString(code.Fg())
 }
 
 // Bg adds a background ANSI 256 color code to the string
-func (a *AString) Bg(code Attribute) {
+func (a *aString) Bg(code Attribute) {
 	a.sb.WriteString(code.Bg())
 }
 
 // Ef adds an ANSI code to the string
-func (a *AString) Ef(code Attribute) {
+func (a *aString) Ef(code Attribute) {
 	a.sb.WriteString(code.Ansi())
 }
 
 // Reset resets all ANSI escape codes
-func (a *AString) Reset() {
-	a.sb.WriteString(Reset.Ansi())
+func (a *aString) Default() {
+	a.sb.WriteString(Attribute(Reset).Ansi())
 }
 
 // Clear resets the string to use zero bytes so that it may be garbage-collected.
-func (a *AString) Clear() {
+func (a *aString) Clear() {
 	a.sb.Reset()
 }
 
 // String returns the complete string buffer
-func (a *AString) String() string {
+func (a *aString) String() string {
 	return a.sb.String()
 }

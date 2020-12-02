@@ -9,13 +9,19 @@ import (
 )
 
 // AnsiDefaults stores the initial ANSI default values
-var AnsiDefaults = ansiCodes{
-	FgWhite,
-	BgBlack,
-	Reset,
+var AnsiDefaults = ansiCodes{}
+
+func init() {
+
+	AnsiDefaults.Set(
+		FgWhite,
+		BgBlack,
+		Reset,
+	)
 }
 
 //* --------------------------------------------------------> ansiCodes type definition
+
 // ansiCodes defines a custom object which is defined by a set of 3 ANSI Attributes
 type ansiCodes struct {
 	fg Attribute
