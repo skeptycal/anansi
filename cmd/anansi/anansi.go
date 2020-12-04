@@ -5,7 +5,6 @@ import (
 	"os"
 
 	log "github.com/sirupsen/logrus"
-
 	"github.com/skeptycal/anansi"
 )
 
@@ -21,5 +20,4 @@ func main() {
 	log.Fatal("MAYDAY MAYDAY MAYDAY. Execution will be stopped here")
 	log.Panic("Do not panic")
 	io.Copy(anansi.Output, os.Stdin)
-
 }

@@ -12,6 +12,7 @@ github.com/skeptycal/anansi v0.0.0-20201126071108-abfb68267aed h1:wU8qLp+px3EQKy
 github.com/skeptycal/anansi v0.0.0-20201126071108-abfb68267aed/go.mod h1:0V6nnDM2MwEE3PoAQ4YIVED+j64rAa3Jh3lpptOcjfQ=
 github.com/skeptycal/godebug v0.0.0-20201204081951-f0256ae8d932 h1:l4sj+xdpO8uMS5lJrQVdljc61ZqQ2IIoBNBb2SpMagE=
 github.com/skeptycal/godebug v0.0.0-20201204081951-f0256ae8d932/go.mod h1:wAQQM4hd4JKjVW3q8EPYAkym5844+NrndcWRIEwB38M=
+github.com/skeptycal/util v0.0.0-20201202203118-5e3fcccec15f h1:PP48JM5hMnD8Icz28fBFzXBCtsGpQUrSc2OJqiuysuo=
 github.com/stretchr/testify v1.2.2 h1:bSDNvY7ZPG5RlJ8otE/7V6gMiyenm9RtJ7IUVIAoJ1w=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 golang.org/x/sys v0.0.0-20191026070338-33540a1f6037/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
