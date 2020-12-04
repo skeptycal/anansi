@@ -1,7 +1,5 @@
 package anansi // import "anansi"
 
-Package anansi implements interface to anansi
-
 const None int = iota ...
 var NoColor = ... ...
 var AnsiDefaults = ansiCodes{}
