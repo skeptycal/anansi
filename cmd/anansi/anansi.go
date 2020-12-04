@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/skeptycal/util/anansi"
+	"github.com/skeptycal/anansi"
 )
 
 func main() {
