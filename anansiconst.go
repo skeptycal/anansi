@@ -6,13 +6,14 @@ package anansi
 
 import (
 	"os"
+	"strconv"
 	"sync"
 
 	"github.com/mattn/go-colorable"
 	"github.com/mattn/go-isatty"
 )
 
-var (
+var ( // globally available variables
 	// NoColor defines if the output is colorized or not. It's dynamically set to
 	// false or true based on the stdout's file descriptor referring to a terminal
 	// or not. This is a global option and affects all colors. For more control
@@ -31,13 +32,18 @@ var (
 	// allows to reuse already created objects with required Attribute.
 	colorsCache   = make(map[Attribute]*Color)
 	colorsCacheMu sync.Mutex // protects colorsCache
-
 )
 
 // Color defines a custom color object which is defined by SGR parameters.
 type Color struct {
 	params  []Attribute
 	noColor *bool
+}
+
+// ScreenWidth returns the cli screen width in 'characters' or 'columns'
+func ScreenWidth() int {
+	i, _ := strconv.Atoi(os.Getenv("COLUMNS"))
+	return i
 }
 
 // String formatting constants
@@ -65,6 +71,19 @@ const (
 
 	// background code for ANSI 256 color strings
 	bg = "4"
+)
+
+// Color Styles
+const (
+	None int = iota
+	Ansi8
+	Ansi16
+	Ansi256
+	Hex
+	RGB
+	HSV
+	HSL
+	CMYK
 )
 
 // Base attributes
