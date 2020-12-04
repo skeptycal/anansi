@@ -2,10 +2,10 @@ package anansi
 
 import (
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/skeptycal/godebug"
+	log "github.com/sirupsen/logrus"
+	db "github.com/skeptycal/godebug"
 )
 
 func init() {
@@ -45,7 +45,7 @@ type defaultValues struct {
 	CodeSymbolColors codeSymbolColors
 }
 
-var config godebug.Session
+var config db.Session
 
 // VerboseLevel defines the level of visual feedback in the cli terminal
 type VerboseLevel uint
@@ -70,10 +70,10 @@ func StartTimer(name string) func() {
 	*/
 
 	t := time.Now()
-	godebug.LogPrintln("Timer started:", name)
+	log.Info("Timer started:", name)
 	return func() {
 		d := time.Now().Sub(t)
-		LogPrintln(name, "took", d)
+		log.Info(name, "took", d)
 	}
 }
 
