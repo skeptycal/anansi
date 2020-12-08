@@ -1,7 +1,7 @@
 package main
 
 import (
-	"anansi"
+	"github.com/skeptycal/anansi"
 
 	"github.com/sirupsen/logrus"
 )
