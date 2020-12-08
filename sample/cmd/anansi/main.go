@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"os"
 
@@ -14,10 +15,14 @@ func main() {
 	Formatter.FullTimestamp = true
 	log.SetFormatter(Formatter)
 
-	log.Info("Some info. Earth is not flat.")
+	log.Info("Some info...")
 	log.Warning("This is a warning")
 	log.Error("Not fatal. An error. Won't stop execution")
-	log.Fatal("MAYDAY MAYDAY MAYDAY. Execution will be stopped here")
-	log.Panic("Do not panic")
-	io.Copy(anansi.Output, os.Stdin)
+	// log.Fatal("MAYDAY MAYDAY MAYDAY. Execution will be stopped here")
+	// log.Panic("Do not panic")
+
+	b, err := io.Copy(anansi.Output, os.Stdin)
+	if err != nil {
+		log.Error(fmt.Errorf("Failed to copy. %v bytes written.", b))
+	}
 }

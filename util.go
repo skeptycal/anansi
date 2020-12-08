@@ -43,22 +43,22 @@ type Tokens map[string]Attribute
 
 // New returns a new Tokens object
 func (t *Tokens) New(m map[string]Attribute) Tokens {
-    var defaultTokens = make(Tokens)
+	var defaultTokens = make(Tokens)
 
-
-	defaultTokens = map[string]Attribute
+	defaultTokens = Tokens{
 		"colorKeywords":    FgCyan,
 		"colorOperator":    FgRed,
 		"colorIntegers":    FgMagenta,
 		"colorFloats":      FgMagenta,
 		"colorStrings":     FgHiGreen,
 		"colorComments":    FgGreen,
-		"colorPunctuation": FgWhite,
+		"colorPunctuation": FgHiBlue,
 		"colorTypes":       FgYellow,
 	}
 	if m == nil {
 		return defaultTokens
 	}
+
 	return m
 }
 
@@ -71,14 +71,15 @@ type CliConfig struct {
 }
 
 // New returns a new CliConfig object
-func (c *CliConfig) New() *CliConfig {
-	return &CliConfig{
-		ScreenWidth: 79,
-		UseColor:    true,
-		TableFormat: TableFormat.New(),
-		Tokens:      Tokens.New(),
-	}
-}
+// todo finish this
+// func (c *CliConfig) New() *CliConfig {
+// 	return &CliConfig{
+// 		ScreenWidth: 79,
+// 		UseColor:    true,
+// 		TableFormat: TableFormat.New(),
+// 		Tokens:      Tokens.New(),
+// 	}
+// }
 
 // VerboseLevel defines the level of visual feedback in the cli terminal
 type VerboseLevel uint
