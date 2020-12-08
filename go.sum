@@ -8,10 +8,10 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sirupsen/logrus v1.7.0 h1:ShrD1U9pZB12TX0cVy0DtePoCH97K8EtX+mg7ZARUtM=
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
-github.com/skeptycal/anansi v0.0.0-20201126071108-abfb68267aed h1:wU8qLp+px3EQKyxlQCmr73y7PJ3T+O9ovC5GK3Brj50=
-github.com/skeptycal/anansi v0.0.0-20201126071108-abfb68267aed/go.mod h1:0V6nnDM2MwEE3PoAQ4YIVED+j64rAa3Jh3lpptOcjfQ=
-github.com/skeptycal/godebug v0.0.0-20201204081951-f0256ae8d932 h1:l4sj+xdpO8uMS5lJrQVdljc61ZqQ2IIoBNBb2SpMagE=
-github.com/skeptycal/godebug v0.0.0-20201204081951-f0256ae8d932/go.mod h1:wAQQM4hd4JKjVW3q8EPYAkym5844+NrndcWRIEwB38M=
+github.com/skeptycal/anansi v0.0.0-20201204204333-58aea8bdcd71 h1:9EGigHMCU2V41dHwqPqR+KR5jub691I0VHoyI7HMWgE=
+github.com/skeptycal/anansi v0.0.0-20201204204333-58aea8bdcd71/go.mod h1:0V6nnDM2MwEE3PoAQ4YIVED+j64rAa3Jh3lpptOcjfQ=
+github.com/skeptycal/godebug v0.0.0-20201205112237-973e2e02ed9f h1:N7pvvCMZ30YHJcI67tjrxoUB2I684QE5FGtU9Bafo3o=
+github.com/skeptycal/godebug v0.0.0-20201205112237-973e2e02ed9f/go.mod h1:wAQQM4hd4JKjVW3q8EPYAkym5844+NrndcWRIEwB38M=
 github.com/stretchr/testify v1.2.2 h1:bSDNvY7ZPG5RlJ8otE/7V6gMiyenm9RtJ7IUVIAoJ1w=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 golang.org/x/sys v0.0.0-20191026070338-33540a1f6037/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
